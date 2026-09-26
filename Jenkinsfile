@@ -1,3 +1,4 @@
+Jenkins file : 
 pipeline {
     agent any
 
@@ -19,8 +20,8 @@ pipeline {
                 sh 'echo "Push image to registry..."'
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-id', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
+                    sh 'docker push krolnoeurnrpisb/usea-php-app:${BUILD_NUMBER}'
                 }
-                sh 'docker push natvannak/usea-php-app:${BUILD_NUMBER}'
                 // Add your test commands here
             }
         }
@@ -28,12 +29,9 @@ pipeline {
             steps {
                 script{
                     sh 'echo "Deploying the project..."'
-                // ssh agent(['your-ssh-credentials-id']) {
-                //     sh 'ssh user@your-server "docker pull krolnoeurnrpisb/usea-app-html:1.0.${BUILD_NUMBER} && docker stop your-container-name || true && docker rm your-container-name || true && docker run -d --name your-container-name -p 80:80 krolnoeurnrpisb/usea-app-html:1.0.${BUILD_NUMBER}"'
-                // }
                     // ssh '''
                     //     // remove container if it exists
-                    //     ssh root@3.239.208.125 docker stop usea-app-html || true
+                    //     ssh root@34.227.61.167 /var/projects/phpapp/updated_image_version.sh ${BUILD_NUMBER}
                     // '''
                     sh 'ssh root@3.239.208.125 /var/project/deploy.sh ${BUILD_NUMBER}'
                 // Add your deploy commands here
