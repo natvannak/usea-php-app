@@ -35,7 +35,7 @@ pipeline {
                     //     // remove container if it exists
                     //     ssh root@3.239.208.125 docker stop usea-app-html || true
                     // '''
-                    sh 'ssh root@3.239.208.125 /var/project/usea-php-app/deploy.sh ${BUILD_NUMBER}'
+                    sh 'ssh root@3.239.208.125 /var/project/deploy.sh ${BUILD_NUMBER}'
                 // Add your deploy commands here
                 }
                 
