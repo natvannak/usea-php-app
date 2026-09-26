@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'echo "Building the project..."'
-                sh 'docker build -t natvannak/usea-php-app:${BUILD_NUMBER} .'
+                sh 'docker build -t natvannak/php_app:${BUILD_NUMBER} .'
                
             }
         }
@@ -20,7 +20,7 @@ pipeline {
                 sh 'echo "Push image to registry..."'
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-id', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                    sh 'docker push krolnoeurnrpisb/usea-php-app:${BUILD_NUMBER}'
+                    sh 'docker push natvannak/php_app:${BUILD_NUMBER}'
                 }
                 // Add your test commands here
             }
