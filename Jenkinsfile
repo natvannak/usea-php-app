@@ -31,11 +31,11 @@ pipeline {
                 // ssh agent(['your-ssh-credentials-id']) {
                 //     sh 'ssh user@your-server "docker pull krolnoeurnrpisb/usea-app-html:1.0.${BUILD_NUMBER} && docker stop your-container-name || true && docker rm your-container-name || true && docker run -d --name your-container-name -p 80:80 krolnoeurnrpisb/usea-app-html:1.0.${BUILD_NUMBER}"'
                 // }
-                    ssh '''
-                        // remove container if it exists
-                        ssh root@3.239.208.125 docker stop usea-app-html || true
-                    '''
-                    sh 'ssh root@3.239.208.125 docker run -d --name usea-php-html -p 9099:80 natvannak/usea-app-html:${BUILD_NUMBER}'
+                    // ssh '''
+                    //     // remove container if it exists
+                    //     ssh root@3.239.208.125 docker stop usea-app-html || true
+                    // '''
+                    sh 'ssh root@3.239.208.125 /var/project/usea-php-app/deploy.sh ${BUILD_NUMBER}'
                 // Add your deploy commands here
                 }
                 
